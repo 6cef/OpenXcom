@@ -4718,16 +4718,26 @@ void Mod::loadExtraSprite(ExtraSprites *spritePack)
  */
 void Mod::modResources()
 {
+	Log(LOG_INFO) << "Mod::modResources()  1";
 	// we're gonna need these
 	getSurface("GEOBORD.SCR");
+	Log(LOG_INFO) << "Mod::modResources()  2";
 	getSurface("ALTGEOBORD.SCR", false);
+	Log(LOG_INFO) << "Mod::modResources()  3";
 	getSurface("BACK07.SCR");
+	Log(LOG_INFO) << "Mod::modResources()  4";
 	getSurface("ALTBACK07.SCR", false);
+	Log(LOG_INFO) << "Mod::modResources()  5";
 	getSurface("BACK06.SCR");
+	Log(LOG_INFO) << "Mod::modResources()  6";
 	getSurface("UNIBORD.PCK");
+	Log(LOG_INFO) << "Mod::modResources()  7";
 	getSurfaceSet("HANDOB.PCK");
+	Log(LOG_INFO) << "Mod::modResources()  8";
 	getSurfaceSet("FLOOROB.PCK");
+	Log(LOG_INFO) << "Mod::modResources()  9";
 	getSurfaceSet("BIGOBS.PCK");
+	Log(LOG_INFO) << "Mod::modResources()  10";
 
 	// embiggen the geoscape background by mirroring the contents
 	// modders can provide their own backgrounds via ALTGEOBORD.SCR
@@ -4756,6 +4766,7 @@ void Mod::modResources()
 		_surfaces["ALTGEOBORD.SCR"] = newGeo;
 	}
 
+	Log(LOG_INFO) << "Mod::modResources()  11";
 	// here we create an "alternate" background surface for the base info screen.
 	if (_surfaces.find("ALTBACK07.SCR") == _surfaces.end())
 	{
@@ -4772,6 +4783,7 @@ void Mod::modResources()
 				_surfaces["ALTBACK07.SCR"]->setPixel(x, y + 10, _surfaces["ALTBACK07.SCR"]->getPixel(x, y));
 	}
 
+	Log(LOG_INFO) << "Mod::modResources()  12";
 	// we create extra rows on the soldier stat screens by shrinking them all down one pixel/two pixels.
 	int rowHeight = _manaEnabled ? 10 : 11;
 	bool moveOnePixelUp = _manaEnabled ? false : true;
@@ -4795,6 +4807,7 @@ void Mod::modResources()
 			}
 	}
 
+	Log(LOG_INFO) << "Mod::modResources()  13";
 	// now, let's adjust the battlescape info screen.
 	int startHere = _manaEnabled ? 191 : 190;
 	int stopHere = _manaEnabled ? 28 : 37;
@@ -4824,6 +4837,7 @@ void Mod::modResources()
 		for (int x = 0; x < 320; ++x)
 			_surfaces["UNIBORD.PCK"]->setPixel(x, 199, _surfaces["UNIBORD.PCK"]->getPixel(x, 30));
 	}
+	Log(LOG_INFO) << "Mod::modResources()  14";
 }
 
 /**
