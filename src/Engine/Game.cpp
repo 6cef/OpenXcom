@@ -508,10 +508,15 @@ Mod *Game::getMod() const
  */
 void Game::loadMods()
 {
+	Log(LOG_INFO) << "Game::loadMods()  1";
 	Mod::resetGlobalStatics();
+	Log(LOG_INFO) << "Game::loadMods()  2";
 	delete _mod;
+	Log(LOG_INFO) << "Game::loadMods()  3";
 	_mod = new Mod();
+	Log(LOG_INFO) << "Game::loadMods()  4";
 	_mod->loadAll();
+	Log(LOG_INFO) << "Game::loadMods()  5";
 }
 
 /**

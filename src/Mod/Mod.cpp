@@ -1241,6 +1241,7 @@ static void throwModOnErrorHelper(const std::string& modId, const std::string& e
  */
 void Mod::loadAll()
 {
+	Log(LOG_INFO) << "Mod::loadAll()  1";
 	ModScript parser{ _scriptGlobal, this };
 	auto mods = FileMap::getRulesets();
 
@@ -1254,6 +1255,7 @@ void Mod::loadAll()
 	usedModNames.insert(ModNameCurrent);
 
 
+	Log(LOG_INFO) << "Mod::loadAll()  2";
 	// calculated offsets and other things for all mods
 	size_t offset = 0;
 	for (size_t i = 0; mods.size() > i; ++i)
@@ -1273,6 +1275,7 @@ void Mod::loadAll()
 		offset += size;
 	}
 
+	Log(LOG_INFO) << "Mod::loadAll()  3";
 	// load rulesets that can affect loading vanilla resources
 	for (size_t i = 0; _modData.size() > i; ++i)
 	{
@@ -1287,6 +1290,7 @@ void Mod::loadAll()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadAll()  4";
 	// vanilla resources load
 	_modCurrent = &_modData.at(0);
 	loadVanillaResources();
@@ -1300,6 +1304,7 @@ void Mod::loadAll()
 	_soundOffsetBattle = _sounds["BATTLE.CAT"]->getMaxSharedSounds();
 	_soundOffsetGeo = _sounds["GEO.CAT"]->getMaxSharedSounds();
 
+	Log(LOG_INFO) << "Mod::loadAll()  5";
 	// load rest rulesets
 	for (size_t i = 0; mods.size() > i; ++i)
 	{
@@ -1316,10 +1321,12 @@ void Mod::loadAll()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadAll()  6";
 	//back master
 	_modCurrent = &_modData.at(0);
 	_scriptGlobal->endLoad();
 
+	Log(LOG_INFO) << "Mod::loadAll()  7";
 	// post-processing item categories
 	std::map<std::string, std::string> replacementRules;
 	for (auto i = _itemCategories.begin(); i != _itemCategories.end(); ++i)
@@ -1358,15 +1365,25 @@ void Mod::loadAll()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadAll()  8";
 	afterLoadHelper("research", this, _research, &RuleResearch::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  9";
 	afterLoadHelper("items", this, _items, &RuleItem::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  10";
 	afterLoadHelper("manufacture", this, _manufacture, &RuleManufacture::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  11";
 	afterLoadHelper("units", this, _units, &Unit::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  12";
 	afterLoadHelper("soldiers", this, _soldiers, &RuleSoldier::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  13";
 	afterLoadHelper("facilities", this, _facilities, &RuleBaseFacility::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  14";
 	afterLoadHelper("enviroEffects", this, _enviroEffects, &RuleEnviroEffects::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  15";
 	afterLoadHelper("commendations", this, _commendations, &RuleCommendations::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  16";
 	afterLoadHelper("skills", this, _skills, &RuleSkill::afterLoad);
+	Log(LOG_INFO) << "Mod::loadAll()  17";
 
 	// auto-create alternative manufacture rules
 	for (auto shortcutPair : _manufactureShortcut)
@@ -1392,6 +1409,7 @@ void Mod::loadAll()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadAll()  18";
 	// fixed user options
 	if (!_fixedUserOptions.empty())
 	{
@@ -1409,9 +1427,13 @@ void Mod::loadAll()
 	}
 
 
+	Log(LOG_INFO) << "Mod::loadAll()  19";
 	sortLists();
+	Log(LOG_INFO) << "Mod::loadAll()  20";
 	loadExtraResources();
+	Log(LOG_INFO) << "Mod::loadAll()  21";
 	modResources();
+	Log(LOG_INFO) << "Mod::loadAll()  22";
 }
 
 /**
@@ -4473,6 +4495,7 @@ void Mod::loadBattlescapeResources()
  */
 void Mod::loadExtraResources()
 {
+	Log(LOG_INFO) << "Mod::loadExtraResources()  1";
 	// Load fonts
 	YAML::Node doc = FileMap::getYAML("Language/" + _fontName);
 	Log(LOG_INFO) << "Loading fonts... " << _fontName;
@@ -4486,6 +4509,7 @@ void Mod::loadExtraResources()
 
 #ifndef __NO_MUSIC
 	// Load musics
+	Log(LOG_INFO) << "Mod::loadExtraResources()  2";
 	if (!Options::mute)
 	{
 		auto soundFiles = FileMap::getVFolderContents("SOUND");
@@ -4545,6 +4569,7 @@ void Mod::loadExtraResources()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadExtraResources()  3";
 	for (std::vector< std::pair<std::string, ExtraSounds *> >::const_iterator i = _extraSounds.begin(); i != _extraSounds.end(); ++i)
 	{
 		std::string setName = i->first;
@@ -4605,6 +4630,7 @@ void Mod::loadExtraResources()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadExtraResources()  4";
 	bool backup_logged = false;
 	for (auto pal : _palettes)
 	{
@@ -4619,6 +4645,7 @@ void Mod::loadExtraResources()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadExtraResources()  5";
 	// Hack for hybrid UFO-based games
 	if (_transparencyLUTs.empty() && !_transparencies.empty())
 	{
@@ -4635,10 +4662,12 @@ void Mod::loadExtraResources()
 		}
 	}
 
+	Log(LOG_INFO) << "Mod::loadExtraResources()  6";
 	TextButton::soundPress = getSound("GEO.CAT", Mod::BUTTON_PRESS);
 	Window::soundPopup[0] = getSound("GEO.CAT", Mod::WINDOW_POPUP[0]);
 	Window::soundPopup[1] = getSound("GEO.CAT", Mod::WINDOW_POPUP[1]);
 	Window::soundPopup[2] = getSound("GEO.CAT", Mod::WINDOW_POPUP[2]);
+	Log(LOG_INFO) << "Mod::loadExtraResources()  7";
 }
 
 void Mod::loadExtraSprite(ExtraSprites *spritePack)
